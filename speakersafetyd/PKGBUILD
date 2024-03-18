@@ -1,0 +1,38 @@
+# Maintainer: Nanai Jua <me@n7i.dev>
+
+pkgname=speakersafetyd
+pkgver=0.1.9
+pkgrel=1
+pkgdesc='Rust speaker safety daemon for Asahi Linux'
+url='https://github.com/AsahiLinux/speakersafetyd'
+arch=(aarch64)
+license=(MIT)
+makedepends=(
+  rustup
+)
+_srcname=${pkgname}-${pkgver}
+source=(
+  https://github.com/AsahiLinux/${pkgname}/archive/refs/tags/${pkgver}.tar.gz
+)
+sha512sums=('b237da8d473a89f6cd93c4cc0bef4a5402688c9e6528c54838abeec1d99ec615f69da29483689312da288cd4c4c0186951f60407d8c743d7bdc5a3c1a293fead')
+
+build() {
+  cd ${_srcname}
+
+  PREFIX=/usr make all
+}
+
+package() {
+  cd ${_srcname}
+
+  make install                      \
+    DESTDIR=${pkgdir}               \
+    UNITDIR=/usr/lib/systemd/system \
+    UDEVDIR=/usr/lib/udev/rules.d
+
+  install -Dm644 -t ${pkgdir}/usr/share/doc/${pkgname} README.md
+  install -Dm644 -t ${pkgdir}/usr/share/doc/${pkgname} docs/speakers.txt
+  install -Dm644 -t ${pkgdir}/usr/share/doc/${pkgname} docs/audump.py
+}
+
+# vim:set ts=8 sts=2 sw=2 et:
