@@ -13,8 +13,17 @@ makedepends=(
 _srcname=${pkgname}-${pkgver}
 source=(
   https://github.com/AsahiLinux/${pkgname}/archive/refs/tags/${pkgver}.tar.gz
+  align-debug.patch
 )
-sha512sums=('b237da8d473a89f6cd93c4cc0bef4a5402688c9e6528c54838abeec1d99ec615f69da29483689312da288cd4c4c0186951f60407d8c743d7bdc5a3c1a293fead')
+sha512sums=('b237da8d473a89f6cd93c4cc0bef4a5402688c9e6528c54838abeec1d99ec615f69da29483689312da288cd4c4c0186951f60407d8c743d7bdc5a3c1a293fead'
+            '6a41e6523fa22b7d9235032170c9f23253b4b5a02661bb6a5f007d5d98e5a1c43755b8886f3d5b072aa8892b7d642c1070d544206274bdd60e4f03834979a57d')
+
+prepare() {
+  cd ${_srcname}
+
+  echo "Applying patch..."
+  patch -Np1 < ../align-debug.patch
+}
 
 build() {
   cd ${_srcname}
