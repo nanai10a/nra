@@ -8,7 +8,7 @@ url='https://github.com/AsahiLinux/speakersafetyd'
 arch=(aarch64)
 license=(MIT)
 makedepends=(
-  rustup
+  cargo
 )
 _srcname=${pkgname}-${pkgver}
 source=(
