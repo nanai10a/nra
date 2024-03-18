@@ -1,0 +1,33 @@
+# Maintainer: Nanai Jua <me@n7i.dev>
+
+pkgname=asahi-audio
+pkgver=1.7
+pkgrel=1
+pkgdesc='Userspace audio for Asahi Linux'
+url='https://github.com/AsahiLinux/asahi-audio'
+arch=(aarch64)
+license=(MIT)
+makedepends=()
+_srcname=${pkgname}-${pkgver}
+source=(
+  https://github.com/AsahiLinux/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz
+)
+sha512sums=('cb5007189c7b661704c748159db69eaa9131c0d73cf631254151e4843b4140957f5fd989cd0fd8785abe50aa43e6d58ee4ecf98f5a3bd4d1462b2c3a049dd7d2')
+
+build() {
+  cd ${_srcname}
+
+  make all
+}
+
+package() {
+  cd ${_srcname}
+
+  make install DESTDIR=${pkgdir}
+
+  install -Dm644 -t ${pkgdir}/usr/share/doc/${pkgname} README.md
+
+  install -Dm644 -t ${pkgdir}/usr/share/licenses/${pkgname} LICENSE
+}
+
+# vim:set ts=8 sts=2 sw=2 et:
