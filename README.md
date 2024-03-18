@@ -16,12 +16,12 @@
 
 ## packages status
 
-| name                  | status                 |
-| --------------------- | ---------------------- |
-| `alsa-ucm-conf-asahi` | :question: untested    |
-| `asahi-audio`         | :question: untested    |
-| `bankstown`           | :question: untested    |
-| `graphite-gtk-theme`  | :thinking: may working |
-| `linux-asahi-custom`  | :barrier:  working     |
-| `speakersafetyd`      | :question: untested    |
-| `tela-icon-theme`     | :thinking: may working |
+| name                  | status                      |
+| --------------------- | --------------------------- |
+| `alsa-ucm-conf-asahi` | :question:      untested    |
+| `asahi-audio`         | :question:      untested    |
+| `bankstown`           | :question:      untested    |
+| `graphite-gtk-theme`  | :thinking:      may working |
+| `linux-asahi-custom`  | :construction:  working     |
+| `speakersafetyd`      | :question:      untested    |
+| `tela-icon-theme`     | :thinking:      may working |
