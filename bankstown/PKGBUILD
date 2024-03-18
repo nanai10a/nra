@@ -1,0 +1,35 @@
+# Maintainer: Nanai Jua <me@n7i.dev>
+
+pkgname=bankstown
+pkgver=1.1.0
+pkgrel=1
+pkgdesc='Halfway-decent three-stage psychoacoustic bass approximation'
+url='https://github.com/chadmed/bankstown'
+arch=(aarch64)
+license=(MIT)
+makedepends=(
+  cargo
+)
+_srcname=${pkgname}-${pkgver}
+source=(
+  https://github.com/chadmed/${pkgname}/archive/refs/tags/${pkgver}.tar.gz
+)
+sha512sums=('74dbb96440f0260e08b3f96b28c310326d63bdb4360d4f43f2e1f9c89ff9c0fd4f3c81c78837e64df77e16034e28a23be217b647f3008cf5293c959a26f895d2')
+
+build() {
+  cd ${_srcname}
+
+  make
+}
+
+package() {
+  cd ${_srcname}
+
+  make install DESTDIR=${pkgdir} LIBDIR=/usr/lib
+
+  install -Dm644 -t ${pkgdir}/usr/share/doc/${pkgname} README.md
+
+  install -Dm644 -t ${pkgdir}/usr/share/licenses/${pkgname} LICENSE
+}
+
+# vim:set ts=8 sts=2 sw=2 et:
