@@ -1,0 +1,35 @@
+# Maintainer: Nanai Jua <me@n7i.dev>
+
+pkgbase=graphite-gtk-theme
+pkgname=(${pkgbase}-{nord,black,darker,rimless,normal,float,colorful}-{standard,light,dark}{,-compact})
+pkgver=2023.12.31
+pkgrel=1
+pkgdesc='Graphite gtk theme'
+url='https://github.com/vinceliuice/Graphite-gtk-theme'
+arch=(any)
+license=(GPL-3.0-only)
+depends=(
+  'gtk-engine-murrine'
+)
+_srcname=${pkgbase/g/G}-${pkgver//./-}
+source=(
+  https://github.com/vinceliuice/${pkgbase/g/G}/archive/refs/tags/${pkgver//./-}.tar.gz
+)
+sha512sums=('76d6f763015595b55232f09f9b284adba1e180d3d4baa7494cc133f709d2395d6115b0a3f2f4674f27821e2d50a5555ded60ffa21d3d0367a5172d124f049cbb')
+
+for _size in standard compact; do
+  for _color in standard light dark; do
+    for _tweak in nord black darker rimless normal float colorful; do
+      _pkgsize=$([ $_size = compact ] && echo -compact)
+
+      eval "
+        package_${pkgbase}-${_tweak}-${_color}${_pkgsize}() {
+          cd ${_srcname}
+          ./install.sh -d \${pkgdir}/usr/share/themes -c ${_color} -s ${_size} --tweaks ${_tweak}
+        }
+      "
+    done
+  done
+done
+
+# vim:set ts=8 sts=2 sw=2 et:
