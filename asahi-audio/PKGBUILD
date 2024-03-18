@@ -7,6 +7,13 @@ pkgdesc='Userspace audio for Asahi Linux'
 url='https://github.com/AsahiLinux/asahi-audio'
 arch=(aarch64)
 license=(MIT)
+depends=(
+  'bankstown' # asahi specific package
+  'lsp-plugins-lv2'
+  'pipewire>=0.3.85'
+  'wireplumber>=0.4.16'
+  'speakersafetyd' # asahi specific package
+)
 makedepends=()
 _srcname=${pkgname}-${pkgver}
 source=(
