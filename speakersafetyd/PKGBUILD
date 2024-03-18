@@ -33,6 +33,8 @@ package() {
   install -Dm644 -t ${pkgdir}/usr/share/doc/${pkgname} README.md
   install -Dm644 -t ${pkgdir}/usr/share/doc/${pkgname} docs/speakers.txt
   install -Dm644 -t ${pkgdir}/usr/share/doc/${pkgname} docs/audump.py
+
+  install -Dm644 -t ${pkgdir}/usr/share/licenses/${pkgname} LICENSE
 }
 
 # vim:set ts=8 sts=2 sw=2 et:
