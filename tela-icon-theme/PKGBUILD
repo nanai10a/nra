@@ -1,0 +1,26 @@
+# Maintainer: Nanai Jua <me@n7i.dev>
+
+pkgbase=tela-icon-theme
+pkgname=(${pkgbase}-{standard,black,blue,brown,green,grey,orange,pink,purple,red,yellow,manjaro,ubuntu,dracula,nord})
+pkgver=2023.06.25
+pkgrel=1
+pkgdesc='A flat colorful Design icon theme'
+url='https://github.com/vinceliuice/Tela-icon-theme'
+arch=(any)
+license=(GPL-3.0-only)
+_srcname=${pkgbase/t/T}-${pkgver//./-}
+source=(
+  https://github.com/vinceliuice/${pkgbase/t/T}/archive/refs/tags/${pkgver//./-}.tar.gz
+)
+sha512sums=('f5722c9fa5c9d0ccb01780eed0a6ce063954e85f5c708d2b998254f2978297b1a4cff52622d1e6b3feb667d4f99c3e31099e1c71fad182e35cbcfe1246f67279')
+
+for _color in standard black blue brown green grey orange pink purple red yellow manjaro ubuntu dracula nord; do
+  eval "
+    package_${pkgbase}-${_color}() {
+      cd ${_srcname}
+      ./install.sh -d \${pkgdir}/usr/share/icons ${_color}
+    }
+  "
+done
+
+# vim:set ts=8 sts=2 sw=2 et:
