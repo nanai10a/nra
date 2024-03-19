@@ -6,6 +6,7 @@
 
 ## unproceed
 
+- `mesa-asahi-edge`: this depends kernel, so `depends` on kernel
 - unify few things
   - indents
   - PKGBUILD's variables structure
