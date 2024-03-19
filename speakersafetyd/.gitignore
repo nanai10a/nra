@@ -1,0 +1,6 @@
+*
+
+!.gitignore
+!PKGBUILD
+!extract-patch.sh
+!align-debug.patch

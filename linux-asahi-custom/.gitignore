@@ -1,0 +1,7 @@
+*
+
+!.gitignore
+!PKGBUILD
+!config
+!config.asahi
+!config.requires
