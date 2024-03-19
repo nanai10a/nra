@@ -20,9 +20,14 @@
 | name                  | status                      |
 | --------------------- | --------------------------- |
 | `alsa-ucm-conf-asahi` | :question:      untested    |
+| `ane-modules-git`     | :construction:  working     |
 | `asahi-audio`         | :question:      untested    |
 | `bankstown`           | :question:      untested    |
 | `graphite-gtk-theme`  | :thinking:      may working |
+| `linux-asahi`         | :construction:  working     |
 | `linux-asahi-custom`  | :construction:  working     |
+| `m1n1`                | :question:      untested    |
+| `mesa-asahi-edge`     | :question:      untested    |
 | `speakersafetyd`      | :question:      untested    |
 | `tela-icon-theme`     | :thinking:      may working |
+| `uboot-asahi`         | :question:      untested    |
