@@ -52,37 +52,22 @@ prepare() {
     patch -Np1 < "../$src"
   done
 
-  echo "Creating build directories..."
-  mkdir -p build/base build/edge
+  echo "Creating build directory..."
+  mkdir -p build
 
-  echo "Setting config (base)..."
-  cp ../config build/base/.config
-  make olddefconfig prepare O=$PWD/build/base
-  diff -u ../config build/base/.config || :
-  make -s kernelrelease O=$PWD/build/base > build/base/version
+  echo "Setting config..."
+  cp ../config build/.config
+  make olddefconfig prepare O=$PWD/build
+  diff -u ../config build/.config || :
+  make -s kernelrelease O=$PWD/build > build/version
 
-  echo "Setting config (edge)..."
-  cat build/base/.config ../config.edge > build/edge/.config
-  make olddefconfig prepare O=$PWD/build/edge
-  make -s kernelrelease O=$PWD/build/edge > build/edge/version
-
-  echo "Prepared $pkgbase version $(<build/base/version)"
+  echo "Prepared $pkgbase version $(<build/version)"
 }
 
 build() {
   cd $_srcname
-  echo "Building base..."
-  make all O=$PWD/build/base
-  echo "Copying objects..."
-  cp build/edge/.config{,.save}
-  touch build/base/.config
-  cp -urT build/{base,edge}
-  rm build/edge/init/version.o
-  make O=$PWD/build/edge oldconfig prepare
-  cp build/edge/.config{.save,}
-  echo "Building edge..."
-  make O=$PWD/build/edge oldconfig prepare
-  make O=$PWD/build/edge all
+  echo "Building..."
+  make all O=$PWD/build
 }
 
 _package_kernel() {
@@ -116,14 +101,8 @@ _package_kernel() {
 
 _package() {
   cd $_srcname
-  export O="$PWD/build/base"
+  export O="$PWD/build"
   _package_kernel "$pkgbase"
-}
-
-_package-edge() {
-  cd $_srcname
-  export O="$PWD/build/edge"
-  _package_kernel "$pkgbase-edge" "$pkgbase=$pkgver"
 }
 
 _package-headers() {
@@ -133,7 +112,7 @@ _package-headers() {
   KARCH=arm64
 
   cd $_srcname
-  O=build/base
+  O=build
   local builddir="$pkgdir/usr/lib/modules/$(<${O}/version)/build"
 
   echo "Installing build files..."
@@ -213,17 +192,9 @@ _package-headers() {
   echo "Adding symlink..."
   mkdir -p "$pkgdir/usr/src"
   ln -sr "$builddir" "$pkgdir/usr/src/$pkgbase"
-
-  O=build/edge
-  local builddir2="$pkgdir/usr/lib/modules/$(<${O}/version)/build"
-  mkdir -p $builddir2
-  cp -rl $builddir/* $builddir2
-  cp --remove-destination $O/{.config,System.map,version,Module.symvers,vmlinux} $builddir2
-  rm -rf $builddir2/include/config
-  cp -r $O/include/config $builddir2/include/config
 }
 
-pkgname=("$pkgbase" "$pkgbase-headers" "$pkgbase-edge")
+pkgname=("$pkgbase" "$pkgbase-headers")
 for _p in "${pkgname[@]}"; do
   eval "package_$_p() {
     $(declare -f "_package${_p#$pkgbase}")
