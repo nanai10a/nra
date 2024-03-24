@@ -3,9 +3,9 @@
 
 buildarch=8
 
-_rcver=6.5
+_rcver=6.6
 #_rcrel=3
-_asahirel=15
+_asahirel=14
 pkgrel=1
 
 _m1n1_version=1.4.0
