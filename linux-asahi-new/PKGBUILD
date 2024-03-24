@@ -42,6 +42,7 @@ prepare() {
 
   echo "Setting version..."
   echo "-$_asahirel-$pkgrel" > localversion.10-pkgrel
+  echo "-ARCH" > localversion.20-ARCH
 
   local src
   for src in "${source[@]}"; do
