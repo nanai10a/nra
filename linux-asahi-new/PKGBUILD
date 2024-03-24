@@ -97,7 +97,7 @@ _package_kernel() {
   install -Dt "$modulesdir/dtbs" "$O"/arch/arm64/boot/dts/apple/*.dtb
 
   # remove build and source links
-  rm "$modulesdir"/{source,build}
+  rm "$modulesdir"/{source,build} || true
 }
 
 _package() {
